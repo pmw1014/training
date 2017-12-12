@@ -62,8 +62,8 @@ function heapSortB(array $arr)
     return $obj;
 }
 
-// heapSortA($arr);
-var_dump(heapSortB($arr));
+heapSortA($arr);
+// heapSortB($arr);
 echo "\n";
 echo "耗时：" . (microtime(true)-$t1);
 echo "\n";

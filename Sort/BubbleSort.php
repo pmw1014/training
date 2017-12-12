@@ -3,9 +3,10 @@
  * 冒泡排序
  */
 $t1 = microtime(true);
-$arr = range(1,1000);
+$arr = range(1,10000);
 shuffle($arr);
-// 方法一：
+
+// plan A：
 function bubbleSort(array $arr = []) :array
 {
     foreach ($arr as $ik => &$iv) {
@@ -19,7 +20,7 @@ function bubbleSort(array $arr = []) :array
 }
 
 
-var_dump(bubbleSort($arr));
+bubbleSort($arr);
 echo "\n";
 echo "耗时：" . (microtime(true)-$t1);
 echo "\n";
