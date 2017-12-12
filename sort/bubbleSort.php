@@ -14,13 +14,12 @@ function bubbleSort(array $arr = []) :array
                 list($iv,$jv) = [$jv,$iv];
             }
         }
-        list($iv,$jv) = [$jv,$iv];
     }
     return $arr;
 }
 
 
-bubbleSort($arr);
+var_dump(bubbleSort($arr));
 echo "\n";
 echo "耗时：" . (microtime(true)-$t1);
 echo "\n";

@@ -1,7 +1,7 @@
 <?php
 /**
  * 堆排序（分大顶堆，小顶堆）
- * 求升序用大顶堆，求降序用小定堆
+ * 求升序用大根堆，求降序用小根堆
  */
 $t1 = microtime(true);
 $arr = range(1,10000);
@@ -25,7 +25,7 @@ function heapSortA(array $arr) :array
     return $arr;
 }
 
-
+// 这里是大根堆的算法
 function buildHeap(&$arr,$arrSize){
     //从当前最后一个父节点开始循环
     for($index=intval($arrSize/2)-1; $index>=0; $index--){
@@ -50,22 +50,20 @@ function buildHeap(&$arr,$arrSize){
     }
 }
 
-// plan B(比plan A快1000倍左右)
+
+// plan B
+// php自带大根堆函数(实测比plan A快1000倍左右)
 function heapSortB(array $arr)
 {
     $obj = new SplMaxHeap();
     foreach ($arr as &$row) {
         $obj->insert($row);
     }
-    // 显示结果
-    // foreach ($obj as $num) {
-    //     print_r($num."\n");
-    // }
     return $obj;
 }
 
 // heapSortA($arr);
-heapSortB($arr);
+var_dump(heapSortB($arr));
 echo "\n";
 echo "耗时：" . (microtime(true)-$t1);
 echo "\n";
