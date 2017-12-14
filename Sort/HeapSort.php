@@ -1,6 +1,8 @@
 <?php
 /**
  * 堆排序（分大顶堆，小顶堆）
+ * 时间复杂度：平均O(nlogn)、最坏O(mlogn)、最优O(nlogn)
+ * 空间复杂度:O(n),o(1)额外空间
  * 求升序用大根堆，求降序用小根堆
  */
 $t1 = microtime(true);
@@ -10,6 +12,7 @@ shuffle($arr);
 
 // plan A
 /**
+ * 10000个数(33秒左右)
  * 循环数组大小次数，每次循环得出最大/小值，
  * 并与当前数组长度的最后一个值交换位置，
  * 每次循环都是锁定一个最大/小值的过程
@@ -52,7 +55,10 @@ function buildHeap(&$arr,$arrSize){
 
 
 // plan B
-// php自带大根堆函数(实测比plan A快1000倍左右)
+/*
+ * php自带大根堆函数(实测比plan A快1000倍左右)
+ * 10000个数(0.028秒左右)
+ */
 function heapSortB(array $arr)
 {
     $obj = new SplMaxHeap();
@@ -62,8 +68,8 @@ function heapSortB(array $arr)
     return $obj;
 }
 
-heapSortA($arr);
-// heapSortB($arr);
+// heapSortA($arr);
+heapSortB($arr);
 echo "\n";
 echo "耗时：" . (microtime(true)-$t1);
 echo "\n";
