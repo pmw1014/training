@@ -14,9 +14,6 @@ nginx 1.4.6
 **Generator/**
 生成器语法练习
 
-**Reflection/**
-反射练习
-
 **Sort/**
 排序练习
 
