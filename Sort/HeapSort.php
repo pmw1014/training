@@ -5,10 +5,10 @@
  * 空间复杂度:O(n),o(1)额外空间
  * 求升序用大根堆，求降序用小根堆
  */
+$m1 = memory_get_usage();
 $t1 = microtime(true);
 $arr = range(1,10000);
 shuffle($arr);
-
 
 // plan A
 /**
@@ -68,9 +68,62 @@ function heapSortB(array $arr)
     return $obj;
 }
 
+// plan C
+/**
+ * 10000个数(0.75秒左右)
+ */
+function heapSortC(&$arr) {
+ 	$len = count($arr);
+    // 从第一个父节点开始，循环出大根堆（顺序排序用大根堆，逆序排序就用小根堆）
+ 	for ($i = ($len >> 1) - 1; $i >= 0; $i--){
+ 		max_heapify($arr, $i, $len);
+    }
+ 	// 循环取$arr[$i]值与$arr[0]值交换位置,然后开始建立$arr[0~$i]的大根堆
+ 	// 即从$arr最后一位开始确认数组的最终排序
+ 	for ($i = $len - 1; $i > 0; $i--) {
+ 		swap($arr[0], $arr[$i]);
+ 		max_heapify($arr, 0, $i);
+ 	}
+ 	return $arr;
+}
+/**
+ * 获取大根堆
+ * @brief  [description]
+ * @author zicai
+ * @date   2017-12-15T14:39:50+080
+ *
+ * @param  array                   &$arr    [目标数组]
+ * @param  int                     $parent  [父节点下标]
+ * @param  int                     $end     [总长度]
+ */
+function max_heapify(array &$arr, int $parent, int $end) {
+	$child = $parent * 2 + 1;//左子节点下标
+	if ($child >= $end){
+    	return;
+    }
+    // 比较两子节点，设置$child为最小者
+	if ($child + 1 < $end && $arr[$child] < $arr[$child + 1]){
+        $child++;
+    }
+    //如果父节点小于$child节点则交换两者位置，并继续求$child节点下的大根堆
+	if ($arr[$parent] <= $arr[$child]) {
+		swap($arr[$parent], $arr[$child]);
+		max_heapify($arr, $child, $end);
+	}
+}
+function swap(&$x, &$y) {
+	list($x, $y) = [$y, $x];
+}
+
+
+
 // heapSortA($arr);
-heapSortB($arr);
+// heapSortB($arr);
+heapSortC($arr);
+
 echo "\n";
 echo "耗时：" . (microtime(true)-$t1);
+echo "\n";
+echo "消耗内存：" . round((memory_get_usage()-$m1)/1024/1024,2)."MB";
 echo "\n";
 exit;
