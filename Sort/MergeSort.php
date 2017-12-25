@@ -11,6 +11,7 @@
  * 比php自带大根堆排序慢40倍左右
  *
  */
+$m1 = memory_get_usage();
 $t1 = microtime(true);
 $arr = range(1,10000);
 shuffle($arr);
@@ -45,5 +46,7 @@ function mergeSort(array $arr = []) :array
 mergeSort($arr);
 echo "\n";
 echo "耗时：" . (microtime(true)-$t1);
+echo "\n";
+echo "消耗内存：" . round((memory_get_usage()-$m1)/1024/1024,2)."MB";
 echo "\n";
 exit;

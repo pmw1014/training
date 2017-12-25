@@ -5,6 +5,7 @@
  * 空间复杂度 O(n²)
  * 10000个数(34秒左右)
  */
+$m1 = memory_get_usage();
 $t1 = microtime(true);
 $arr = range(1,10000);
 shuffle($arr);
@@ -34,5 +35,7 @@ function selectSort(array $arr = []) :array
 selectSort($arr);
 echo "\n";
 echo "耗时：" . (microtime(true)-$t1);
+echo "\n";
+echo "消耗内存：" . round((memory_get_usage()-$m1)/1024/1024,2)."MB";
 echo "\n";
 exit;
